@@ -1,0 +1,67 @@
+.calender {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  height: 100vh;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header > * {
+  margin-right: 0.5rem;
+}
+
+.header > :last-child {
+  margin-right: 0;
+}
+
+.btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  color: #333;
+}
+
+.btn:hover {
+  background-color: #f1f3f4;
+}
+
+.monthChangeBtn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  width: 2rem;
+  padding: 0;
+  height: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  transition: background-color 250ms;
+  color: #333;
+}
+
+.monthChangeBtn:hover {
+  background-color: #f1f3f4;
+}
+
+.monthChangeBtn:first-child {
+  margin-right: -0.5rem;
+}
+
+.monthTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

@@ -1,0 +1,19 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+:root {
+  --blue-background: hsl(200, 80%, 50%);
+  --red-background: hsl(0, 75%, 60%);
+  --green-background: hsl(150, 80%, 30%);
+  --border-color: #dadce0;
+  --border-size: 1px;
+  --day-padding: 0.25rem;
+}
