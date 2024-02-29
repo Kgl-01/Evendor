@@ -1,0 +1,165 @@
+.modalTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title > * {
+  margin-right: 0.25rem;
+}
+
+.modal-title > :last-child {
+  margin-right: 0;
+}
+
+.modal-title > small {
+  color: #555;
+}
+
+.closeBtn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  width: 2rem;
+  padding: 0;
+  height: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  transition: background-color 250ms;
+  color: #333;
+}
+
+.closeBtn:hover {
+  background-color: #eaeaea;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.formGroup.checkbox {
+  flex-direction: row;
+  align-items: center;
+}
+
+.formGroup.checkbox input {
+  cursor: pointer;
+  margin-right: 0;
+}
+
+.formGroup.checkbox label {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.formGroup label {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.formGroup input {
+  padding: 0.25rem 0.5rem;
+}
+
+.row {
+  display: flex;
+}
+
+.row > * {
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-right: 0.5rem;
+}
+
+.row > :last-child {
+  margin-right: 0;
+}
+
+.left > * {
+  flex-grow: 0;
+}
+
+.srOnly {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  display: block;
+}
+
+.colorRadio {
+  position: absolute;
+  opacity: 0;
+  left: -9999px;
+}
+
+.colorRadio + label::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0.25;
+}
+
+.colorRadio:checked + label::before {
+  opacity: 1;
+}
+
+.colorRadio:focus + label::before {
+  outline: 1px solid black;
+}
+
+.colorRadio[value="blue"] + label::before {
+  background-color: var(--blue-background);
+}
+
+.colorRadio[value="red"] + label::before {
+  background-color: var(--red-background);
+}
+
+.colorRadio[value="green"] + label::before {
+  background-color: var(--green-background);
+}
+
+.btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  color: #333;
+}
+
+.btnDelete {
+  border-color: hsl(0, 75%, 60%);
+  background-color: hsl(0, 75%, 95%);
+  color: hsl(0, 75%, 10%);
+}
+
+.btnDelete:hover {
+  background-color: hsl(0, 75%, 90%);
+}
+
+.btnSuccess {
+  border-color: hsl(150, 80%, 30%);
+  background-color: hsl(150, 80%, 95%);
+  color: hsl(150, 80%, 10%);
+}
+
+.btnSuccess:hover {
+  background-color: hsl(150, 80%, 90%);
+}
