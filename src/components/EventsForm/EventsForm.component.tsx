@@ -1,7 +1,7 @@
 import { format } from "date-fns"
 import { Modal } from "../Modal/Modal.component"
 import styles from "./EventsForm.module.css"
-import { ChangeEvent, FormEvent, Fragment, useRef, useState } from "react"
+import { FormEvent, Fragment, useRef, useState } from "react"
 type EventFormProps = {
   open: boolean
   onClose: () => void
