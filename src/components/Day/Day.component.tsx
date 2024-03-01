@@ -74,7 +74,7 @@ export const Day = ({ day, index, month, events }: DayProps) => {
           <>
             <OverflowContainer
               className="events"
-              items={events}
+              items={sortedEvents}
               renderItem={(event) => <CalenderEvent event={event} />}
               getKey={(event) => event.id}
               renderOverflow={(amount) => (
