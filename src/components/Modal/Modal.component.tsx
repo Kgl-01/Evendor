@@ -10,7 +10,7 @@ import {
 import styles from "./Modal.module.css"
 import { createPortal } from "react-dom"
 
-type ModalProps = {
+export type ModalProps = {
   open: boolean
   onClose: () => void
   children: ReactNode

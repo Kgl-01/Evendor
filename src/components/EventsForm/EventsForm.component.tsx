@@ -1,39 +1,66 @@
 import { format } from "date-fns"
-import { Modal } from "../Modal/Modal.component"
+import { Modal, ModalProps } from "../Modal/Modal.component"
 import styles from "./EventsForm.module.css"
 import { FormEvent, Fragment, useRef, useState } from "react"
+import { useEvents } from "../../hooks/useEvents"
+import { UnionOmit } from "../../utilities/unionOmit"
+
+type Event = {
+  id: string
+  name: string
+  color: string
+  date: Date
+} & (
+  | { allDay: false; startTime: string; endTime: string }
+  | { allDay: true; startTime: never; endTime: never }
+)
+
 type EventFormProps = {
-  open: boolean
-  onClose: () => void
-  day: Date
-}
+  onSubmit: (event: UnionOmit<Event, "id">) => void
+} & (
+  | {
+      onDelete: () => void
+      event: Event
+      date?: never
+    }
+  | { onDelete?: never; event?: never; date: Date }
+) &
+  Omit<ModalProps, "children">
 
 const eventsColor = ["blue", "red", "green"]
 
-export const EventsForm = ({ open, onClose, day }: EventFormProps) => {
+export const EventsForm = ({
+  onSubmit,
+  onDelete,
+  event,
+  date,
+  ...modalProps
+}: EventFormProps) => {
+  const isNew = event == null
   const [selectedColor, setSelectedColor] = useState(eventsColor[0])
   const nameRef = useRef<HTMLInputElement>(null)
   const [allDay, setAllDay] = useState(false)
   const [startTime, setStartTime] = useState("")
   const endTimeRef = useRef<HTMLInputElement>(null)
+  const { addEvent } = useEvents()
 
-  const onSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     console.log(nameRef.current?.value)
   }
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal {...modalProps}>
       <Modal.Overlay />
       <Modal.Body>
         <div className={styles.modalTitle}>
-          <div>Add Event</div>
-          <small>{format(day, "d/M/yy")}</small>
-          <button className={styles.closeBtn} onClick={onClose}>
+          <div>{isNew ? "Add Event" : "Epdate Event"}</div>
+          <small>{format(date || event?.date, "d/M/yy")}</small>
+          <button className={styles.closeBtn} onClick={modalProps.onClose}>
             &times;
           </button>
         </div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" id="name" ref={nameRef} />

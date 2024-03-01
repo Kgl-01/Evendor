@@ -163,3 +163,12 @@
 .btnSuccess:hover {
   background-color: hsl(150, 80%, 90%);
 }
+
+.eventsViewMoreBtn {
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  width: 100%;
+}

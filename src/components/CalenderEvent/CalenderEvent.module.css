@@ -1,0 +1,74 @@
+.event {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.allDayEvent {
+  color: white;
+  padding: 0.15rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.eventName {
+  overflow: hidden;
+}
+
+.event > * {
+  margin-right: 0.5rem;
+}
+
+.event > :last-child {
+  margin-right: 0;
+}
+
+.eventTime {
+  color: #777;
+}
+
+.colorDot {
+  border-radius: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+}
+
+.colorDot.blue,
+.allDayEvent.blue {
+  background-color: var(--blue-background);
+}
+
+.colorDot.red,
+.allDayEvent.red {
+  background-color: var(--red-background);
+}
+
+.colorDot.green,
+.allDayEvent.green {
+  background-color: var(--green-background);
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.eventsViewMoreBtn {
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  width: 100%;
+}
