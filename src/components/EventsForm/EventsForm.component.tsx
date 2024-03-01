@@ -101,6 +101,7 @@ export const EventsForm = ({
             <input
               type="text"
               name="name"
+              required
               id="name"
               ref={nameRef}
               defaultValue={event?.name}
@@ -126,6 +127,7 @@ export const EventsForm = ({
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 disabled={allDay}
+                required={!allDay}
               />
             </div>
             <div className={styles.formGroup}>
@@ -138,6 +140,7 @@ export const EventsForm = ({
                 name="end-time"
                 id="end-time"
                 disabled={allDay}
+                required={!allDay}
               />
             </div>
           </div>
@@ -154,7 +157,7 @@ export const EventsForm = ({
                     id={color}
                     className={styles.colorRadio}
                     onChange={() => setSelectedColor(color)}
-                    checked={selectedColor === color && true}
+                    checked={selectedColor === color}
                   />
                   <label htmlFor={color}>
                     <span className={styles.srOnly}>{color}</span>

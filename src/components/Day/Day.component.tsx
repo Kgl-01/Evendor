@@ -1,7 +1,7 @@
 import { format, isBefore, isSameDay, isSameMonth, subDays } from "date-fns"
 import styles from "./Day.module.css"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { EventsForm } from "../EventsForm/EventsForm.component"
 import { useEvents } from "../../hooks/useEvents"
 import { Event } from "../../context/EventsContext/Events.context"
@@ -29,6 +29,21 @@ export const Day = ({ day, index, month, events }: DayProps) => {
   const toggleModal = () => {
     setOpen(true)
   }
+
+  const sortedEvents = useMemo(() => {
+    const timeToNumber = (time: string) => parseFloat(time.replace(":", "."))
+    return [...events].sort((a, b) => {
+      if (a.allDay && b.allDay) {
+        return 0
+      } else if (a.allDay) {
+        return -1
+      } else if (b.allDay) {
+        return 1
+      } else {
+        return timeToNumber(a.startTime) - timeToNumber(b.startTime)
+      }
+    })
+  }, [events])
 
   return (
     <>
@@ -74,7 +89,7 @@ export const Day = ({ day, index, month, events }: DayProps) => {
               )}
             />
             <ViewMoreCalendarEventsModal
-              events={events}
+              events={sortedEvents}
               onClose={() => setIsViewMoreEventModalOpen(false)}
               open={isViewMoreEventModalOpen}
             />
