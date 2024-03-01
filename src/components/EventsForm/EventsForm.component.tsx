@@ -169,15 +169,17 @@ export const EventsForm = ({
               className={`${styles.btn} ${styles.btnSuccess}`}
               type="submit"
             >
-              Add
+              {isNew ? "Add" : "Edit"}
             </button>
-            <button
-              className={`${styles.btn} ${styles.btnDelete}`}
-              type="button"
-              onClick={onDelete}
-            >
-              Delete
-            </button>
+            {onDelete != null && (
+              <button
+                className={`${styles.btn} ${styles.btnDelete}`}
+                type="button"
+                onClick={onDelete}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </form>
       </Modal.Body>
