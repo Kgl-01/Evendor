@@ -2,7 +2,6 @@ import { format } from "date-fns"
 import { Modal, ModalProps } from "../Modal/Modal.component"
 import styles from "./EventsForm.module.css"
 import { FormEvent, Fragment, useRef, useState } from "react"
-import { useEvents } from "../../hooks/useEvents"
 import { UnionOmit } from "../../utilities/unionOmit"
 
 type Event = {
@@ -37,16 +36,52 @@ export const EventsForm = ({
   ...modalProps
 }: EventFormProps) => {
   const isNew = event == null
-  const [selectedColor, setSelectedColor] = useState(eventsColor[0])
+  const [selectedColor, setSelectedColor] = useState(
+    event?.color || eventsColor[0]
+  )
   const nameRef = useRef<HTMLInputElement>(null)
-  const [allDay, setAllDay] = useState(false)
-  const [startTime, setStartTime] = useState("")
+  const [allDay, setAllDay] = useState(event?.allDay || false)
+  const [startTime, setStartTime] = useState(event?.startTime || "")
   const endTimeRef = useRef<HTMLInputElement>(null)
-  const { addEvent } = useEvents()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    console.log(nameRef.current?.value)
+    const name = nameRef.current?.value
+    const endTime = endTimeRef.current?.value
+
+    if (name == null || name === "") return
+
+    const commonProps = {
+      name,
+      date: date || event.date,
+      color: selectedColor,
+    }
+
+    let newEvent: UnionOmit<Event, "id">
+
+    if (allDay) {
+      newEvent = {
+        ...commonProps,
+        allDay: true,
+      } as UnionOmit<Event, "id">
+    } else {
+      if (
+        startTime == null ||
+        startTime === "" ||
+        endTime == null ||
+        endTime === ""
+      ) {
+        return
+      }
+      newEvent = {
+        ...commonProps,
+        allDay: false,
+        startTime,
+        endTime,
+      } as UnionOmit<Event, "id">
+    }
+    modalProps.onClose()
+    onSubmit(newEvent)
   }
 
   return (
@@ -63,7 +98,13 @@ export const EventsForm = ({
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" ref={nameRef} />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              ref={nameRef}
+              defaultValue={event?.name}
+            />
           </div>
           <div className={`${styles.formGroup} ${styles.checkbox}`}>
             <input
@@ -92,6 +133,7 @@ export const EventsForm = ({
               <input
                 ref={endTimeRef}
                 min={startTime}
+                defaultValue={event?.endTime}
                 type="time"
                 name="end-time"
                 id="end-time"
@@ -132,6 +174,7 @@ export const EventsForm = ({
             <button
               className={`${styles.btn} ${styles.btnDelete}`}
               type="button"
+              onClick={onDelete}
             >
               Delete
             </button>

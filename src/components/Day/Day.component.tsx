@@ -7,6 +7,7 @@ import { useEvents } from "../../hooks/useEvents"
 import { Event } from "../../context/EventsContext/Events.context"
 import { OverflowContainer } from "../OverflowContainer/OverFlowContainer.component"
 import { CalenderEvent } from "../CalenderEvent/CalenderEvent.component"
+import { ViewMoreCalendarEventsModal } from "../ViewMoreCalenderEventsModal/ViewMoreCalenderEventsModal.component"
 
 type DayProps = {
   day: Date
@@ -17,7 +18,8 @@ type DayProps = {
 
 export const Day = ({ day, index, month, events }: DayProps) => {
   const [open, setOpen] = useState(false)
-  const [viewMoreEventModalOpen, setIsViewMoreEventModalOpen] = useState(false)
+  const [isViewMoreEventModalOpen, setIsViewMoreEventModalOpen] =
+    useState(false)
   const { addEvent } = useEvents()
 
   const onClose = () => {
@@ -54,22 +56,29 @@ export const Day = ({ day, index, month, events }: DayProps) => {
         </div>
 
         {events.length > 0 && (
-          <OverflowContainer
-            className="events"
-            items={events}
-            renderItem={(event) => <CalenderEvent event={event} />}
-            getKey={(event) => event.id}
-            renderOverflow={(amount) => (
-              <>
-                <button
-                  onClick={() => setIsViewMoreEventModalOpen(true)}
-                  className={styles.eventsViewMoreBtn}
-                >
-                  +{amount} More
-                </button>
-              </>
-            )}
-          />
+          <>
+            <OverflowContainer
+              className="events"
+              items={events}
+              renderItem={(event) => <CalenderEvent event={event} />}
+              getKey={(event) => event.id}
+              renderOverflow={(amount) => (
+                <>
+                  <button
+                    onClick={() => setIsViewMoreEventModalOpen(true)}
+                    className={styles.eventsViewMoreBtn}
+                  >
+                    +{amount} More
+                  </button>
+                </>
+              )}
+            />
+            <ViewMoreCalendarEventsModal
+              events={events}
+              onClose={() => setIsViewMoreEventModalOpen(false)}
+              open={isViewMoreEventModalOpen}
+            />
+          </>
         )}
 
         <EventsForm
